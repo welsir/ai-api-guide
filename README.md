@@ -229,9 +229,7 @@ Agent 一项任务通常可能包含多次请求。应统计整项任务的输�
 - 内容贡献：[贡献指南](CONTRIBUTING.md)；提交真实经验或可复现的修正。
 - 更新历史：[CHANGELOG](CHANGELOG.md)。
 
-### 参考与维护关系
-
-目录与选型组织方式参考了社区项目 [Awesome AI Gateway](https://github.com/cuihuan/awesome-ai-gateway)。本文为独立编写，不复制其排名或评测结论。
+### 维护关系
 
 本项目由 Orbis 维护，包含指向 Orbis 商业服务的链接；不代表所提及模型厂商、客户端或框架的官方项目或背书。链接中的 UTM 用于区分访问来源，不包含 API Key。
 

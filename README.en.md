@@ -159,6 +159,4 @@ Content reviewed: **2026-10-19**. This first edition provides selection and conf
 
 Report reproducible problems using [Issues](https://github.com/welsir/ai-api-guide/issues/new/choose). Remove keys, personal data and sensitive prompts first.
 
-The organization of this guide was inspired by the community project [Awesome AI Gateway](https://github.com/cuihuan/awesome-ai-gateway). The text is independently written and does not reproduce its rankings or evaluation conclusions.
-
 Orbis maintains this guide and provides a commercial API service. No affiliation or endorsement by the named model vendors or client projects is implied. Outbound Orbis links use UTM parameters to distinguish referral sources; they contain no API keys. Original content is available under the [MIT License](LICENSE).
