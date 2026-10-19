@@ -17,7 +17,7 @@ A practical guide to **AI API providers, LLM model selection, API pricing and co
 
 ### 热门模型价格 / Featured API Pricing
 
-单位：**人民币元 / 100 万 tokens（CNY / 1M tokens）**。以下为 2026-10-19 公开报价，每行对应指定线路。
+单位：**¥ / 100 万 tokens（¥ / 1M tokens）**。以下为 2026-10-19 公开报价，每行对应指定线路。
 
 | 模型 / Model | 线路 / Route | 普通输入 / Input | 输出 / Output | 缓存读取 / Cache read |
 |---|---|---:|---:|---:|

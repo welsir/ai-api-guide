@@ -13,7 +13,7 @@ A practical guide to Claude, GPT, Gemini, DeepSeek, Kimi, Qwen and GLM APIs; AI 
 
 ### Featured API Pricing
 
-All prices are in **Chinese yuan per 1 million tokens (CNY / 1M tokens)**, from the public catalog on **2026-10-19**. Each row refers to a specific route.
+All prices are in **¥ / 1M tokens**, from the public catalog on **2026-10-19**. Each row refers to a specific route.
 
 | Model | Route | Ordinary input | Output | Cache read |
 |---|---|---:|---:|---:|
