@@ -49,6 +49,13 @@ Check the linked route for current prices. Cache reads and writes are billed sep
 
 ### Explore the guide
 
+- [Client integration recipes](#client-recipes)
+- [Request design and prompts](#request-design)
+- [Streaming and tool calling](#streaming-tools)
+- [Billing and offline calculator](#cost-ledger)
+- [Troubleshooting by symptom](#failure-cases)
+- [Small evaluation kit](#evaluation-kit)
+- [From trial to routine use](#launch-checklist)
 - [AI 项目导航 / AI Resource Directory](#resource-directory)
 - [托管与自部署 / Hosted vs Self-hosted](#deployment-options)
 - [调用示例 / Python, JavaScript & cURL](#request-examples)
@@ -519,6 +526,431 @@ Include time, client version, model ID, route, endpoint, error code and a redact
 | BYOK | Bring your own key | Upstream charges generally still apply |
 | Fallback | Alternative handling after failure | Model, route and billing changes should be explicit |
 | Observability | Inspecting calls, errors and costs | Helps explain slow or expensive tasks |
+
+<a id="client-recipes"></a>
+## Client Integration Recipes
+
+These procedures organize an integration without assuming a particular version's menu labels. Use settings supported by your installed version, and copy the address, protocol and model ID from your selected route. Start with a short request before adding tools, images or retrieval.
+
+### Cherry Studio: start with one minimal chat configuration
+
+For desktop conversations across models. Project: [Cherry Studio](https://github.com/CherryHQ/cherry-studio).
+
+1. Add a provider configuration matching the route's protocol and give it a distinct name.
+2. Enter its Base URL, key and exact model ID.
+3. Test a new plain-text conversation without old image or tool messages.
+4. Check the result and usage before testing attachments or tools separately.
+
+| Situation | First action |
+|---|---|
+| Several configurations have the same name | Label each with model, route and purpose |
+| Models load but chat fails | Check endpoint, group permissions and error |
+| New conversations work; old ones fail | Inspect message formats and context length |
+| Costs change after switching routes | Record both rates and actual usage |
+
+Acceptance: identify the model and route used for the request and where to inspect its cost.
+
+### Open WebUI / LobeHub: verify backend connectivity
+
+For a web conversation interface or multiple assistants. Projects: [Open WebUI](https://github.com/open-webui/open-webui) · [LobeHub](https://github.com/lobehub/lobehub).
+
+1. Identify the process sending model requests: browser, local service or container.
+2. Verify connectivity from that environment before configuring the connection.
+3. Add one test model and send a short text message.
+4. Before sharing access, check member permissions and credential visibility.
+
+| Situation | First action |
+|---|---|
+| Works locally but fails in a container | Check container DNS, networking and proxy settings |
+| localhost is assumed to mean the host | Identify the request process's network environment |
+| Model appears but sending hangs | Check server-side requests and timeouts |
+| Shared usage has no cost attribution | Separate credentials and preserve attribution |
+
+Acceptance: a real request from the web interface completes, without full keys appearing in server logs.
+
+### Cline / Kilo Code / Aider: verify a small coding task
+
+Projects: [Cline](https://github.com/cline/cline) · [Kilo Code](https://github.com/Kilo-Org/kilocode) · [Aider](https://github.com/Aider-AI/aider). Select a provider configuration supported by the installed client and matching the route.
+
+1. Prepare a bounded problem in a test project, such as fixing one function's boundary condition.
+2. Include relevant files instead of sending the entire repository at the start.
+3. Verify reads, edits and returned tool results; inspect the actual diff.
+4. Run existing project checks and review cumulative task usage.
+
+| Situation | First action |
+|---|---|
+| Answers work but editing fails | Inspect tool calls and result round trips |
+| Repeated reads of the same file | Check whether tool results reach the model |
+| Correct edits but no completion | Inspect stop conditions and repeated verification loops |
+| Much higher costs than chat | Count code, history, tool output and every turn |
+
+Acceptance: a reviewable code change passes checks and the task terminates. The same small task can evaluate clients such as Claude Code and Codex, but their protocols and configuration fields need separate checks.
+
+### Dify: connect chat and retrieval separately
+
+Project: [Dify](https://github.com/langgenius/dify). Connect generation before assembling document processing and retrieval.
+
+1. Configure one text model in a minimal input-to-answer application.
+2. Configure the required embedding service separately for a knowledge base.
+3. Import a short known document and verify chunking and indexing.
+4. Ask a factual question, then inspect retrieved passages and the final answer separately.
+
+| Situation | First action |
+|---|---|
+| Chat works but ingestion fails | Check embeddings and document parsing |
+| Empty retrieval, confident answer | Specify behavior when evidence is absent |
+| Relevant passages, incorrect answer | Inspect context and instructions sent to generation |
+| Old index fails after a model change | Check embedding model, dimensions and index compatibility |
+
+Acceptance: answer an in-document question with evidence and clearly acknowledge an out-of-document question.
+
+### n8n: process one item before scaling
+
+Project: [n8n](https://github.com/n8n-io/n8n). Place model calls in observable processing steps.
+
+1. Prepare one input record with a unique ID; configure credentials and the node.
+2. Inspect the sent fields instead of inserting the entire upstream object into the prompt.
+3. Validate response fields before writing to the destination.
+4. Add a few items and observe rate limits, failure branches and recovery.
+
+| Situation | First action |
+|---|---|
+| One item works; several lose results | Ensure every input has an output or failure record |
+| Rerunning creates duplicate writes | Deduplicate or update using input IDs |
+| Model call succeeds; next node fails | Check output structure and field mappings |
+| An occasional 429 stops everything | Add bounded retries and recoverable failure states |
+
+Acceptance: every input maps to a result or explicit error; rerunning does not duplicate completed external operations.
+
+<a id="request-design"></a>
+## Request Design & Parameters
+
+### Define inputs, outputs and completion criteria
+
+A checkable request states the task, source material, output shape and behavior when information is missing. Parameters cannot replace a clear task definition.
+
+| Component | Example | Avoid |
+|---|---|---|
+| Task | Extract an order ID and total | Only saying “analyze this” |
+| Evidence boundary | Use only the supplied text | Unrelated conversation history |
+| Output shape | Return JSON with two fields | Conflicting JSON and long-prose requirements |
+| Missing information | Return null if the amount is absent | Requiring an amount in every case |
+| Acceptance | Fields exist and match the source | Checking only HTTP status |
+
+### Use parameters within the route's supported scope
+
+| Parameter concept | Purpose | Guidance |
+|---|---|---|
+| Output token limit | Bound generated content | Field names depend on the protocol |
+| Temperature | Adjust sampling randomness | Low values do not guarantee factual or deterministic output |
+| Top-p | Restrict sampling candidates | Avoid arbitrary changes to multiple sampling controls |
+| Stop sequence | Stop at a specified string | Check for accidental truncation of valid content |
+| Reasoning setting | Adjust reasoning behavior | Verify names, values and billing per route |
+| Response format | Declare the output form | Validate structure and business meaning locally |
+| Seed | Sampling control on some services | Not a cross-service consistency guarantee |
+| Metadata | Associate business identifiers | Include only needed, non-sensitive information |
+
+Remove or adjust unsupported fields explicitly instead of relying on silent ignoring. Debug with a minimal field set and add one parameter at a time.
+
+### Structured extraction: an adaptable prompt
+
+```text
+Task: extract information from the order text below.
+Use only the order text; do not infer missing information.
+Return a JSON object without Markdown code fences.
+Fields:
+- order_id: string, or null if absent
+- total: number, or null if absent
+- currency: string, or null if absent
+
+Order text:
+Order A-1001, total 28.50, currency CNY.
+```
+
+Expected business result follows. If the route supports strict output constraints, also declare the field structure through its protocol.
+
+```json
+{
+  "order_id": "A-1001",
+  "total": 28.5,
+  "currency": "CNY"
+}
+```
+
+Include missing fields, multiple amounts and refunds in acceptance samples. Valid JSON can still contain the wrong amount.
+
+### Long-document summaries: distinguish evidence from inference
+
+```text
+Summarize the supplied document in three parts:
+1. Main conclusions: at most five, each with a source paragraph ID.
+2. Open questions: only issues explicitly mentioned in the document.
+3. Information gaps: information needed to answer but absent from the document.
+Do not present inference as a source fact.
+When a conclusion is unsupported, say “not provided in the document.”
+```
+
+Stable paragraph IDs make checking easier than a vague request for sources. Inspect conditions, exceptions and numbers, not only fluency.
+
+### Translation: preserve protected content
+
+```text
+Translate the following text into English.
+Preserve product names, variable names, URLs, amounts and identifiers.
+Follow the glossary; translate uncovered terms using context.
+Keep paragraph order with one output paragraph per input paragraph.
+List uncertain terms separately; do not add facts.
+```
+
+For batches, return the input ID with each output instead of guessing correspondence from order. Retain originals for review rather than overwriting the only copy.
+
+<a id="streaming-tools"></a>
+## Streaming & Tool Calling
+
+### Why can a stream contain text and still fail?
+
+Network chunks, SSE events and model output are different layers. One network read may contain part of an event or several events.
+
+| Layer | Handle | Common mistake |
+|---|---|---|
+| HTTP | Status, response type and timeouts | Parsing an error JSON response as SSE |
+| Byte stream | Split characters and buffers | Decoding every chunk independently |
+| SSE events | Boundaries and multiline data | Assuming one network chunk equals one event |
+| Protocol content | Text, tool deltas, completion and errors | Processing text and dropping other events |
+| Application state | Completed, cancelled or interrupted | Marking partial text as success |
+
+Record first output, normal completion and premature closure separately. This distinguishes slow startup from long generation and interruption.
+
+### A complete tool-call round trip
+
+```text
+1. The application declares available tools and their parameters.
+2. The model returns one or more tool requests.
+3. The application validates names, arguments and permissions.
+4. The application executes permitted operations and retains real results.
+5. It returns the call IDs and tool results in the required protocol.
+6. The model answers from those results or requests another step.
+7. The loop stops at completion or a budget limit.
+```
+
+A model-generated command is not execution authorization. Application permissions and confirmation rules should govern consequential actions such as deletion, payments and sending messages.
+
+### Useful tool-call debugging records
+
+| Field | Record | Purpose |
+|---|---|---|
+| task_id | Business task ID | Connect multiple turns |
+| request_id | Model request ID | Match service logs |
+| tool_call_id | Protocol call ID | Associate the returned result |
+| tool_name | Actual tool name | Detect the wrong tool |
+| argument_validation | Pass or fail | Separate generation from execution issues |
+| execution_status | Succeeded, failed or not executed | Avoid treating non-execution as success |
+| elapsed_ms | Tool execution time | Locate waits outside model generation |
+
+Retain only what debugging needs. Arguments and results may contain user data; redact before public reporting.
+
+<a id="cost-ledger"></a>
+## Billing Reconciliation & Offline Estimates
+
+### Normalize quotes and usage
+
+| Field to check | Why it matters |
+|---|---|
+| Quote date and route | Identically named models can have different rates |
+| Billing unit | Per-million, per-thousand and per-request rates differ |
+| Ordinary input | Avoid including separately billed cache usage twice |
+| Cache reads | May be a separate category or a subset of input |
+| Cache writes | Check whether ordinary input charges are included |
+| Output | Check the classification of reasoning usage |
+| Other modalities or tools | Images, audio and search may be charged separately |
+| Rounding | Displayed per-call values may differ from billing precision |
+
+Read usage-field definitions and convert overlapping counts into non-overlapping categories before multiplying and summing. Do not add every token-looking field together.
+
+### Python offline cost calculator
+
+This calculates ordinary input and output only, without network access or keys. Rates come from the listed DeepSeek route; usage is hypothetical. Update prices when changing routes.
+
+```python
+from decimal import Decimal
+
+PER_MILLION = Decimal("1000000")
+INPUT_PRICE = Decimal("0.05")
+OUTPUT_PRICE = Decimal("0.20")
+
+
+def estimate(input_tokens, output_tokens):
+    for value in (input_tokens, output_tokens):
+        if type(value) is not int or value < 0:
+            raise ValueError("Token counts must be non-negative integers")
+    return (
+        Decimal(input_tokens) * INPUT_PRICE
+        + Decimal(output_tokens) * OUTPUT_PRICE
+    ) / PER_MILLION
+
+
+samples = [
+    ("classification", 1000, 100),
+    ("translation", 2000, 1000),
+    ("summary", 20000, 2000),
+    ("code", 40000, 5000),
+]
+for name, input_tokens, output_tokens in samples:
+    per_request = estimate(input_tokens, output_tokens)
+    per_thousand = per_request * 1000
+    print(f"{name}: one=¥{per_request:.5f}, 1000=¥{per_thousand:.2f}")
+```
+
+Expected output:
+
+```text
+classification: one=¥0.00007, 1000=¥0.07
+translation: one=¥0.00030, 1000=¥0.30
+summary: one=¥0.00140, 1000=¥1.40
+code: one=¥0.00300, 1000=¥3.00
+```
+
+### Investigating a billing difference
+
+1. Match the same request; do not compare an entire agent task with one call.
+2. Match quote date, model, route and billing unit.
+3. Check for omitted caching, reasoning, tools or other modalities.
+4. Check whether the client, SDK and gateway each retried separately.
+5. Retain request IDs, usage and cost records before submitting a redacted report.
+
+[Open Orbis route prices](https://orbiorbi.com/pricing?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=en-billing-ledger). Reconcile a few real calls before increasing spend.
+
+<a id="failure-cases"></a>
+## Troubleshooting by Symptom
+
+### Terminal requests work, application requests fail
+
+Compare actual requests, not just values displayed in settings.
+
+| Compare | Possible difference |
+|---|---|
+| Final URL | A different prefix or endpoint is appended |
+| Model ID | An alias or old model is sent |
+| Authentication | A different credential source is used |
+| Payload | Unsupported fields are added |
+| Runtime | The process or container uses different networking |
+
+Reduce to the same short request that worked in the terminal, then restore features one at a time.
+
+### HTTP 200, but no usable result
+
+Transport success still requires inspecting response content.
+
+| Response | Next check |
+|---|---|
+| Task ID | Follow the asynchronous protocol to completion |
+| Tool request | Execute permitted tools and return results |
+| Empty output | Inspect finish reason, limits and response fields |
+| Content in a different field | Parse the actual endpoint's protocol |
+| Valid outer JSON, missing business fields | Mark as failed or pending under business rules |
+
+Do not turn unexpected responses into silent empty-string success; missing batch results become difficult to detect.
+
+### Timeouts followed by duplicate operations
+
+A timeout does not prove the server did nothing. Generation or tool execution may already have completed when the connection breaks.
+
+| Operation | Before retrying |
+|---|---|
+| Text generation | Account for potentially duplicated inference charges |
+| Database write | Use a business key to prevent duplicates |
+| Email or message send | Check delivery state before another attempt |
+| Payment or order action | Use the business system's idempotency and query mechanisms |
+| Async generation | Save the task ID instead of creating another task |
+
+Stable operation IDs are more reliable than assuming retries are harmless.
+
+### Where is the time going?
+
+| Interval | Observation points |
+|---|---|
+| Before sending | Application queue, file reading and retrieval |
+| Connection setup | DNS, network, TLS and proxies |
+| Before first output | Queueing, input processing and preparation |
+| During output | Output length, generation rate and buffering |
+| After model response | Tools, destination writes and UI updates |
+
+Measure the whole task as well as first-output and tool times. A long spinner alone does not identify the slow layer.
+
+### Short text works, long text fails
+
+| Check | Direction |
+|---|---|
+| Input plus reserved output | Leave capacity for output |
+| History and tool messages | Remove irrelevant duplication |
+| File and body limits | Distinguish byte limits from token limits |
+| Gateway or client timeout | Check whether generation continues after timeout |
+| Document handling | Use retrieval or chunking instead of sending everything |
+
+Chunked summaries also need a merge-stage review to preserve conditions and conclusions spanning sections.
+
+<a id="evaluation-kit"></a>
+## Small Evaluation Kit
+
+Prepare fixed samples so candidates process the same material. This is a task-design template, not a completed benchmark.
+
+| Sample | Input design | Acceptance |
+|---|---|---|
+| Extraction | Explicit order ID and amount | Correct fields and values |
+| Missing information | Remove the amount | Missing value, no invention |
+| Multiple candidates | Original, discounted and paid amounts | Correct requested amount |
+| Summary | Conclusion, conditions and exceptions | Conditions and exceptions retained |
+| Translation | Terms, variables and numbers | Protected fields unchanged |
+| Code fix | Small bug with an existing test | Passing checks and focused edits |
+| Tool use | Answer requires one lookup | Uses returned data |
+| RAG | Answer and paragraph IDs in the document | Correct answer and citation |
+| No-answer RAG | Requested fact absent | Acknowledges missing evidence |
+| Long context | Conditions in different locations | Finds and combines necessary information |
+
+### Suggested evaluation record
+
+```json
+{
+  "sample_id": "invoice-missing-total",
+  "model_id": "your-model-id",
+  "route": "your-route",
+  "client_version": "your-client-version",
+  "expected": "total is null",
+  "observed": null,
+  "passed": null,
+  "input_tokens": null,
+  "output_tokens": null,
+  "elapsed_ms": null,
+  "cost": null,
+  "tested_at": null
+}
+```
+
+`null` means untested or unrecorded, not zero cost or failure. Populate real results before aggregating so a plan is not mistaken for a test report.
+
+### Reading the results
+
+- Success rate: passing samples divided by completed tests, with incomplete tests listed separately.
+- Completion cost: total spend including failed attempts divided by successful tasks; no finite unit cost when none succeed.
+- Latency: distinguish first output from whole-task duration and retain slow requests.
+- Corrections: record human review and editing effort, not only automatic pass rate.
+- Scope: small samples support conclusions about those tasks, not every application.
+
+<a id="launch-checklist"></a>
+## From Trial to Routine Use
+
+| Stage | Action | Retain |
+|---|---|---|
+| Selection | Choose model, route, protocol and budget | Connection details and quote date |
+| Connection | One short text request | Reviewable response |
+| Features | Required streaming, tools or images | Separate results per feature |
+| Quality | Fixed business samples | Passing and failing cases |
+| Cost | Reconcile usage and charges | Cost per task |
+| Small batch | Control concurrency and handle errors | Recoverable execution records |
+| Routine usage | Cost alerts and anomaly observation | Usage trends and issue records |
+| Changes | Recheck key samples after upgrades or route changes | Old/new configurations and result differences |
+
+Start on Orbis by [choosing a model and route](https://orbiorbi.com/pricing?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=en-launch-checklist), creating a matching key, connecting your tool and checking functionality and cost on a small task. Use inexpensive routes for tasks that meet your own acceptance criteria before increasing volume.
 
 ## Verification and maintenance
 
