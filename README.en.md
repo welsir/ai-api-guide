@@ -30,7 +30,7 @@ All prices are in **¥ / 1M tokens**, from the public catalog on **2026-10-19**.
 - **Pay as you go, no monthly fee**: pay for actual usage; your balance does not expire.
 - **Multiple models and selectable routes**: access Claude, GPT, Gemini, DeepSeek, Kimi and more through one platform. See route prices and choose the route yourself.
 - **Familiar API formats**: OpenAI-compatible and Anthropic protocol routes help connect existing applications. Supported endpoints and capabilities depend on the selected route.
-- **CNY billing and usage tracking**: budget in Chinese yuan and inspect usage and costs in the console.
+- **¥ pricing and usage tracking**: budget using listed prices and inspect usage and costs in the console.
 
 **[Browse all model and route prices →](https://orbiorbi.com/pricing?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=en-value-all-models)** · **[Get started with Orbis →](https://orbiorbi.com/?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=en-value-start)**
 
@@ -46,6 +46,17 @@ Check the linked route for current prices. Cache reads and writes are billed sep
 | Migrate an existing application | [Protocols and migration](#protocols-and-migration) |
 | Fix an API error | [Troubleshooting](#troubleshooting) |
 | Use Orbis | [Connect through Orbis](#connect-through-orbis) |
+
+### Explore the guide
+
+- [AI 项目导航 / AI Resource Directory](#resource-directory)
+- [托管与自部署 / Hosted vs Self-hosted](#deployment-options)
+- [调用示例 / Python, JavaScript & cURL](#request-examples)
+- [低成本预算 / Budget Playbook](#budget-playbook)
+- [应用工作流 / Workflow Recipes](#workflow-recipes)
+- [Agent 与 MCP / Agents & MCP](#agent-mcp)
+- [更多问题 / More FAQ](#extended-faq)
+- [术语表 / Glossary](#glossary)
 
 <a id="model-selection"></a>
 ## Model selection
@@ -182,6 +193,332 @@ Orbis presents models and selectable routes. Based on the product pages reviewed
 Catalog listings, configuration declarations and live test results are different evidence levels. Parameters marked “configuration declared; execution unknown” are not verified functionality.
 
 [Models & routes](https://orbiorbi.com/pricing?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=en-next) · [Connection docs](https://orbiorbi.com/tutorials?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=en-docs) · [API Keys](https://orbiorbi.com/keys?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=en-keys)
+
+<a id="resource-directory"></a>
+## AI Resource Directory
+
+Find a tool by the job you need it to do. Links point to the projects' own GitHub repositories; descriptions and archive status were checked on **2026-10-19**. Inclusion is not an Orbis compatibility certification. Review the current license and version requirements before deployment or commercial use.
+
+### AI gateways and API management
+
+| Project | Purpose | When to explore it |
+|---|---|---|
+| [LiteLLM](https://github.com/BerriAI/litellm) | Unified model access and call management | You already have several upstream keys |
+| [New API](https://github.com/QuantumNous/new-api) | Model aggregation and distribution | You need model, channel and user management |
+| [One API](https://github.com/songquanpeng/one-api) | API adaptation and key distribution | You maintain an existing One API installation |
+| [Bifrost](https://github.com/maximhq/bifrost) | Model and agent gateway | You need to evaluate routing, budgets and failover |
+| [Higress](https://github.com/higress-group/higress) | AI-native API gateway | You want to add AI traffic to gateway infrastructure |
+| [Portkey Gateway](https://github.com/Portkey-AI/gateway) | Multi-model request routing | You need centralized upstream request policies |
+| [agentgateway](https://github.com/agentgateway/agentgateway) | Agent and MCP proxy | You need to manage agent-to-MCP access |
+
+### Coding and chat clients
+
+| Project | Purpose | When to explore it |
+|---|---|---|
+| [Cline](https://github.com/cline/cline) | Coding agent | Use models and tools in a development workflow |
+| [Kilo Code](https://github.com/Kilo-Org/kilocode) | Agentic development platform | Evaluate model-powered engineering workflows |
+| [Aider](https://github.com/Aider-AI/aider) | Terminal pair programming | Work with a model on code from your terminal |
+| [Cherry Studio](https://github.com/CherryHQ/cherry-studio) | Multi-model desktop workspace | Use multiple models and assistants in one workspace |
+| [Open WebUI](https://github.com/open-webui/open-webui) | Model chat interface | Add a web chat interface to model services |
+| [LobeHub](https://github.com/lobehub/lobehub) | Agent workspace | Organize multiple assistants and tasks |
+
+### Workflows and application development
+
+| Project | Purpose | When to explore it |
+|---|---|---|
+| [Dify](https://github.com/langgenius/dify) | Agent workflows and RAG applications | Build business applications with knowledge retrieval |
+| [n8n](https://github.com/n8n-io/n8n) | Visual workflow automation | Connect AI steps to business systems |
+| [LangChain](https://github.com/langchain-ai/langchain) | Agent application development | Compose models, tools and tasks in code |
+| [LlamaIndex](https://github.com/run-llama/llama_index) | Document processing and retrieval | Connect your documents to an AI application |
+| [AI SDK](https://github.com/vercel/ai) | TypeScript AI application toolkit | Integrate model interactions into a web app |
+
+### Evaluation, observability and local inference
+
+| Project | Purpose | When to explore it |
+|---|---|---|
+| [Langfuse](https://github.com/langfuse/langfuse) | Tracing and evaluation | Locate costs and failures across agent steps |
+| [Promptfoo](https://github.com/promptfoo/promptfoo) | Prompt and application evaluation | Compare models on the same sample set |
+| [Ollama](https://github.com/ollama/ollama) | Model runtime | Try running models on your own machine |
+| [vLLM](https://github.com/vllm-project/vllm) | Model inference and serving engine | You have compute and operations capacity for serving models |
+
+### Projects in older tutorials
+
+The listed [Roo Code](https://github.com/RooCodeInc/Roo-Code) and [Flowise](https://github.com/FlowiseAI/Flowise) repositories were marked **Archived** when checked. Older tutorials can remain useful; check for a maintained successor and supported versions before starting a new deployment.
+
+Clients handle interaction, workflows arrange steps, gateways manage requests, and model services perform inference. Installing a gateway does not provide upstream model credits. To connect an existing client, start with an [Orbis model and route](https://orbiorbi.com/pricing?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=en-resource-directory) and match its protocol to your client.
+
+<a id="deployment-options"></a>
+## Hosted APIs, Self-hosted Gateways & Local Models
+
+| Approach | What you need | Main costs | When it fits |
+|---|---|---|---|
+| Direct model API | Provider account, key and client | Calls and integration maintenance | You mainly need one provider |
+| Multi-model service such as Orbis | Account and a key for your selected route | Actual model and route usage | Compare models without operating a gateway |
+| Self-hosted gateway such as LiteLLM | Server, configuration and upstream keys | Upstream calls, hosting and operations | Unify several upstream services |
+| New API / One API deployment | Runtime, database and channels | Upstream calls, storage and maintenance | Operate your own model distribution system |
+| Local model runtime | Suitable hardware, model files and runtime | Hardware, power and setup | Run inference on your own machine |
+| Self-hosted inference service | Compute, model, serving engine and monitoring | Compute utilization and operations | You have sustained demand and serving expertise |
+
+### Looking for an OpenRouter alternative?
+
+Define what you want to replace: a shared balance, model selection, a protocol, a lower-cost route or management of your existing keys. List the endpoints and features your application uses before changing providers. The same model name does not guarantee an identical request contract.
+
+For inexpensive model access, start with [Orbis pricing](#why-orbis) and compare cost per completed task. For managing upstream keys you already own, explore the [gateway directory](#resource-directory). You can also combine a gateway with a hosted model service.
+
+### Is a self-hosted gateway cheaper?
+
+Calculate `upstream inference + server + logs and storage + maintenance time`. A gateway helps manage access; it does not automatically reduce upstream rates. Compare actual hosted-service bills for occasional use, and assess operational benefits when a team needs shared access policies or routing.
+
+<a id="request-examples"></a>
+## Minimal Requests: Python, JavaScript & cURL
+
+These are **generic Chat Completions templates**, not live-tested configurations for every Orbis route. Copy the Base URL, key and model ID from a route supporting this protocol. `AI_BASE_URL` must include its required API prefix; the examples append only `/chat/completions`.
+
+Set `AI_BASE_URL`, `AI_API_KEY` and `AI_MODEL` in your local environment. Keep keys out of browser code, repositories and screenshots. The examples surface errors and do not automatically retry.
+
+### Python standard library
+
+No SDK is required. Save as `request.py`, configure the environment variables and run `python3 request.py`.
+
+```python
+import json
+import os
+import urllib.request
+
+endpoint = os.environ["AI_BASE_URL"].rstrip("/") + "/chat/completions"
+payload = {
+    "model": os.environ["AI_MODEL"],
+    "messages": [{"role": "user", "content": "Reply with one short greeting."}],
+    "stream": False,
+}
+request = urllib.request.Request(
+    endpoint,
+    data=json.dumps(payload).encode("utf-8"),
+    headers={
+        "Authorization": "Bearer " + os.environ["AI_API_KEY"],
+        "Content-Type": "application/json",
+    },
+    method="POST",
+)
+with urllib.request.urlopen(request, timeout=60) as response:
+    result = json.load(response)
+print(json.dumps(result, ensure_ascii=False, indent=2))
+```
+
+Check the returned `choices` and `usage`. On a 404, inspect the final path and model ID instead of blindly appending another `/v1`.
+
+### Server-side JavaScript
+
+Use a Node.js runtime with built-in `fetch`. Save as `request.mjs` and run `node request.mjs` on your server or local machine.
+
+```javascript
+const { AI_BASE_URL, AI_API_KEY, AI_MODEL } = process.env;
+if (!AI_BASE_URL || !AI_API_KEY || !AI_MODEL) {
+  throw new Error("Set AI_BASE_URL, AI_API_KEY and AI_MODEL first");
+}
+const response = await fetch(
+  `${AI_BASE_URL.replace(/\/+$/, "")}/chat/completions`,
+  {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${AI_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: AI_MODEL,
+      messages: [{ role: "user", content: "Reply with one short greeting." }],
+      stream: false,
+    }),
+    signal: AbortSignal.timeout(60_000),
+  },
+);
+if (!response.ok) throw new Error(`HTTP ${response.status}`);
+console.log(JSON.stringify(await response.json(), null, 2));
+```
+
+### cURL: inspect the raw HTTP response
+
+Requires `curl` and `jq`. Building JSON with `jq` preserves the model ID as a JSON string.
+
+```bash
+: "${AI_BASE_URL:?Set AI_BASE_URL first}"
+: "${AI_API_KEY:?Set AI_API_KEY first}"
+: "${AI_MODEL:?Set AI_MODEL first}"
+jq -n --arg model "$AI_MODEL" \
+  '{model: $model, messages: [{role: "user", content: "Hello"}], stream: false}' \
+  > request.json
+curl --fail-with-body --silent --show-error --max-time 60 \
+  "${AI_BASE_URL%/}/chat/completions" \
+  -H "Authorization: Bearer ${AI_API_KEY}" \
+  -H 'Content-Type: application/json' \
+  --data-binary @request.json
+```
+
+### Beyond text chat
+
+| Feature | What changes | What to verify |
+|---|---|---|
+| Streaming | Stream requests and incremental event parsing | Content, termination and mid-stream errors |
+| Tool calling | Tool definitions, permitted execution and returned results | A full call-and-result round trip |
+| Structured output | Protocol constraints and local validation | Required fields and types |
+| Vision | Route-supported image message format | Correct answers about the supplied image |
+| Responses / Messages | Endpoint, payload and parser | A complete request through the new protocol |
+
+<a id="budget-playbook"></a>
+## Low-cost API Budget Playbook
+
+These examples use the listed **DeepSeek V4.1 Flash Orbis Exclusive** quote: ¥0.05 / 1M ordinary input tokens and ¥0.20 / 1M output tokens. Workloads are hypothetical; calculations exclude caching and additional billing items. They are not throughput or task-quality guarantees.
+
+| Workload | Ordinary input / request | Output / request | Estimated request cost | 1,000 requests |
+|---|---:|---:|---:|---:|
+| Classification and tagging | 1,000 | 100 | ¥0.00007 | ¥0.07 |
+| Short translation | 2,000 | 1,000 | ¥0.00030 | ¥0.30 |
+| Document summary | 20,000 | 2,000 | ¥0.00140 | ¥1.40 |
+| Longer code question | 40,000 | 5,000 | ¥0.00300 | ¥3.00 |
+
+### Reduce agent, RAG and coding costs
+
+| Cost driver | First adjustment | Watch for |
+|---|---|---|
+| Repeated conversation history | Retain relevant history and shorten old tool outputs | Lost constraints or facts |
+| Too many retrieved documents | Deduplicate and select relevant passages | Missing evidence needed for the answer |
+| Expensive models for every task | Separate simple classification from difficult reasoning | Completion rate, not just token price |
+| Unbounded agent loops | Limit steps, time and spend | Explicit incomplete status when limits are reached |
+| Overlong output | Specify useful format and length | Truncation of necessary content |
+| Repeated failed requests | Classify errors and bound retries | Retrying permission or malformed-request errors |
+| Misunderstood cache pricing | Track ordinary input, cache reads and writes separately | Actual hit rate and bill changes |
+
+### Price versus cost per completed task
+
+In a hypothetical comparison, model A costs ¥0.01 per attempt and completes 10 tasks in 20 attempts: ¥0.20 total, or ¥0.02 per completed task. Model B costs ¥0.015 per attempt and completes the same tasks in 10 attempts: ¥0.15 total, or ¥0.015 per completed task. Lower request prices can be offset by failures and retries.
+
+Record total spend, completed tasks, completion time and manual corrections. Choose the least expensive route that meets your task's acceptance criteria.
+
+<a id="workflow-recipes"></a>
+## Practical Workflow Recipes
+
+### Dify document Q&A
+
+Documents → chunks → embeddings → retrieval → optional reranking → generated answers. A chat-model key does not automatically include embeddings or reranking. Start with one short document, inspect retrieved passages, then check answer citations before importing more data.
+
+Separate ingestion costs from per-question retrieval and generation costs. Changing embedding models may require checking dimensions and rebuilding the index.
+
+### n8n batch summarization
+
+Read records → prepare each input → call the model → validate output → save results. Assign stable record IDs and persist success/failure status. Skip completed items when resuming. Start with low concurrency and adjust to observed rate limits instead of sending the entire dataset simultaneously.
+
+### Coding agents
+
+Define the task → read relevant files → propose edits → execute permitted operations → run project checks. Use one small fix to validate editing and tool calls before expanding scope. Budget for every turn, file and tool output, not just the initial instruction.
+
+### Translation and extraction
+
+Preserve an ID for each input and specify terminology and output fields. Track parsing failures, missing items and incorrect content separately. Test varied input lengths before a batch so one oversized item does not derail the whole run.
+
+### Multimodal tasks
+
+Distinguish image understanding from image generation, and speech recognition from speech synthesis. Protocols and billing units can differ. Persist asynchronous task IDs and verify final status and accessible outputs; an accepted request is not a completed generation.
+
+<a id="agent-mcp"></a>
+## LLM APIs, Agents & MCP
+
+```text
+User task
+  → Client or agent: arrange context and choose the next step
+    → LLM API: generate content or tool requests
+    → Tool connection: read files, retrieve data, perform permitted actions
+      → MCP server: expose tools or resources through a shared interface
+  → Return the result and record calls and costs
+```
+
+MCP connects tools and resources; it is not model credit or a guarantee of agent compatibility. A model's tool request still needs application-side validation, execution and a returned result.
+
+| Question | Distinction |
+|---|---|
+| Does buying API access give me an agent? | An agent also needs a task loop, tools and state |
+| Is an MCP server a model relay? | MCP exposes tools/resources; a model gateway manages model requests |
+| Has a tool executed when a model requests it? | No; the application must carry out the permitted operation |
+| Can any chat model power a coding agent? | Check tool arguments, context, streaming and client protocols |
+| Does workflow software include inference? | Check software licensing and model usage charges separately |
+
+<a id="extended-faq"></a>
+## More API Questions
+
+### Can an inexpensive API work with Claude Code, Codex or Cursor?
+
+The route must match the client's protocol, authentication and required features. Try one small task. A working chat feature does not establish that agents, completion and other features use the same custom API.
+
+### What are an API Key, Base URL and model ID?
+
+The key authenticates access; the Base URL identifies the service entry point; the model ID selects the requested model. Use values from the same connection instructions. A display name may differ from the invocation ID.
+
+### Why does a listed model fail when called?
+
+Discovery does not establish call permissions. Check the key's group, balance, route status and requested endpoint. Retain the error type and request ID instead of repeatedly refreshing the model list.
+
+### How many words or Chinese characters are in 1M tokens?
+
+There is no fixed conversion. Tokenizers, languages, code and symbols differ. Estimate from representative samples and actual usage rather than equating tokens with words or characters.
+
+### Is a free API suitable for production?
+
+Check reset periods, limits, permitted use and expiry. Trial credits can validate a flow, but budget for post-trial rates and explicitly handle exhausted credits.
+
+### Is streaming cheaper?
+
+Streaming changes delivery, not necessarily generation volume. Costs depend on usage and billing rules. Check whether cancelling stops upstream generation and how partial responses are billed.
+
+### Can an OpenAI-compatible endpoint call Claude or Gemini?
+
+Only when the service exposes those models through that protocol. Conversion can affect tools, images, reasoning fields or other features. Test what your application actually uses.
+
+### Does a model automatically search the web?
+
+Ordinary text requests do not imply web access. The service must expose an appropriate tool, or your application must retrieve material before generation. A recent date in an answer is not evidence of a search.
+
+### Why do long conversations cost more?
+
+Clients often resend conversation history, including tool outputs. Inspect input usage per turn and retain relevant history without dropping important constraints.
+
+### Should everyone share one key?
+
+Check platform rules and permissions. Separate credentials make attribution and revocation easier. Never expose a primary key in browser-side code.
+
+### Does local inference remove all costs?
+
+It may remove external per-token charges, but hardware, compute, power and maintenance remain. Compare identical workload and quality requirements, including idle capacity.
+
+### What makes a useful support report?
+
+Include time, client version, model ID, route, endpoint, error code and a redacted minimal request. Add a request ID if available. Exclude keys and private documents; use the [Issue templates](https://github.com/welsir/ai-api-guide/issues/new/choose).
+
+<a id="glossary"></a>
+## Glossary
+
+| Term | Meaning | Why it matters |
+|---|---|---|
+| API Key | Authentication credential | Permissions and cost attribution |
+| Base URL | Service entry address | Incorrect path construction can cause 404s |
+| Model ID | Invocation identifier | Display names may not be callable IDs |
+| Token | Model processing unit | Word count does not equal billed usage |
+| Context window | Context capacity | Limits supplied material and history |
+| Output limit | Maximum output size | Different from context capacity |
+| Streaming / SSE | Incremental event delivery | Requires completion and error handling |
+| TTFT | Time to first token | Wait before output begins |
+| Tokens per second | Output rate | Different from total task speed |
+| RPM / TPM | Requests / tokens per minute | Distinct limits can apply |
+| Concurrency | Simultaneous requests | Different from requests per minute |
+| Prompt cache | Reuse of processed input | Reads, writes and misses may differ in price |
+| Tool calling | Structured action request | Application execution is still needed |
+| Structured output | Constrained response shape | Business correctness still needs validation |
+| Embedding | Content represented as vectors | Model changes can affect indexes |
+| Rerank | Reordering candidate results | Changes evidence supplied to the model |
+| RAG | Retrieve material before generation | Retrieval and answer quality both matter |
+| Agent | Model, tools and state for a task | One task may involve many calls |
+| MCP | Tool and resource connection protocol | Not a model API or inference credit |
+| BYOK | Bring your own key | Upstream charges generally still apply |
+| Fallback | Alternative handling after failure | Model, route and billing changes should be explicit |
+| Observability | Inspecting calls, errors and costs | Helps explain slow or expensive tasks |
 
 ## Verification and maintenance
 

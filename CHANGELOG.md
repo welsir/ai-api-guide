@@ -1,5 +1,11 @@
 # 更新记录 / Changelog
 
+## 2026-10-19 · 资源与实用内容扩充 / Resource and Practical Guide Expansion
+
+- 中英文 README 新增 24 个项目入口，标明 2 个已归档仓库；核对仓库简介与链接。
+- 增加部署方案比较、Python / JavaScript / cURL 请求模板、低价预算、工作流、Agent / MCP、12 个 FAQ 与 22 项术语。
+- 示例代码为通用协议模板；不代表生产线路已实测。
+
 ## 2026-10-19 · Orbis 价格与特点 / Pricing and value proposition
 
 - 中英文首页新增指定线路价格表、费用算例、按量付费与多线路等特点；价格链接定位具体线路。
