@@ -1,6 +1,8 @@
-# AI API Guide · 模型选型、价格与工具接入指南
+# AI API Guide · 模型选型与接入 / Model Selection & Integration
 
 **从 Claude、GPT、Gemini、DeepSeek、Kimi、Qwen，到 Claude Code、Codex、Cline 和 AI 工作流：先弄清怎么选，再开始调用。**
+
+A practical guide to **AI API providers, LLM model selection, API pricing and cost comparison, OpenAI-compatible endpoints, coding tool integration, and troubleshooting**. Connect models to Claude Code, Codex, Cline, chat clients and AI workflows. Maintained by Orbis; [read the full English guide](README.en.md).
 
 [模型与线路](https://orbiorbi.com/pricing?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=header-models) · [接入文档](https://orbiorbi.com/tutorials?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=header-docs) · [Orbis](https://orbiorbi.com/?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=header-home) · [English](README.en.md)
 
@@ -8,7 +10,7 @@
 
 ---
 
-## 快速选择：你现在要解决什么？
+## 快速选择 / Quick Start
 
 | 你的问题 | 从这里开始 | 要拿到的结果 |
 |---|---|---|
@@ -20,20 +22,20 @@
 | 在做 RAG、Agent、n8n 或 Dify 工作流 | [应用场景](#use-cases) | 先核对真正需要的模型能力 |
 | 想直接使用 Orbis | [Orbis 接入](#orbis-setup) | 选模型、选线路、创建对应 Key |
 
-### 目录
+### 目录 / Contents
 
-- [API 服务怎么选](#choose-provider)
-- [Claude、GPT、Gemini、DeepSeek、Kimi、Qwen 模型选型](#model-guide)
-- [Claude Code、Codex、Cline 等工具接入](#tool-setup)
-- [OpenAI-compatible、Anthropic 与 API 迁移](#protocol-guide)
-- [价格、缓存与场景成本](#cost-guide)
-- [RAG、Agent、多模态与工作流](#use-cases)
-- [常见错误与 FAQ](#troubleshooting)
-- [通过 Orbis 接入](#orbis-setup)
-- [验证记录、更新与贡献](#maintenance)
+- [API 服务选型 / Choosing an API Provider](#choose-provider)
+- [模型选型 / Claude, GPT, Gemini, DeepSeek, Kimi & Qwen](#model-guide)
+- [工具接入 / Claude Code, Codex & Cline Integration](#tool-setup)
+- [协议与迁移 / OpenAI-compatible APIs & Migration](#protocol-guide)
+- [价格与成本 / API Pricing, Caching & Token Costs](#cost-guide)
+- [应用场景 / RAG, Agents & Multimodal Workflows](#use-cases)
+- [常见错误 / Troubleshooting & FAQ](#troubleshooting)
+- [通过 Orbis 接入 / Connect through Orbis](#orbis-setup)
+- [验证与更新 / Verification & Updates](#maintenance)
 
 <a id="choose-provider"></a>
-## API 服务怎么选：看任务、协议和完整成本
+## API 服务选型 / Choosing an AI API Provider
 
 别只比较模型数量或最低单价。先挑一个真实任务，例如修改一段项目代码、总结一份文档或调用一次外部工具，再按同样的输入比较候选方案。
 
@@ -50,7 +52,7 @@
 **官方 API、聚合 API、API 中转、自部署网关不是同一种产品。** 官方 API 通常直接对接一家提供方；聚合或中转服务集中接入和计费；自部署网关则需要自行承担部署、运维及上游接入。选择取决于你的任务与维护能力。
 
 <a id="model-guide"></a>
-## 模型选型：模型家族 × 真实任务
+## 模型选型 / LLM Model Selection
 
 同一家族的不同版本、不同线路也可能有不同的上下文、输出上限和功能。下表是选择时的问题清单，不是能力排名，也不代表 Orbis 当前提供表中每一种功能。
 
@@ -69,7 +71,7 @@
 [查看 Orbis 当前模型与线路](https://orbiorbi.com/pricing?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=model-guide)。具体版本、可用状态和报价以选择的线路页面为准。
 
 <a id="tool-setup"></a>
-## AI 工具接入：Claude Code、Codex、Cline 与聊天客户端
+## 工具接入 / Claude Code, Codex, Cline & Chat Client Integration
 
 先准备三个值：**服务地址（Base URL）、该线路的 API Key、精确的模型 ID**。再核对工具所需协议。下面列的是配置检查重点，不是逐工具实测兼容承诺。
 
@@ -96,7 +98,7 @@
 `/v1` 是否应写进 Base URL，取决于客户端会不会自动拼接；不要机械地添加或删除。若最终请求出现重复路径，先修正地址拼接。
 
 <a id="protocol-guide"></a>
-## OpenAI-compatible、Anthropic 与 API 迁移
+## 协议与迁移 / OpenAI-compatible APIs, Anthropic & API Migration
 
 **OpenAI-compatible 描述兼容范围，并不自动保证支持所有 OpenAI 接口。** 迁移时把以下接口和能力分别检查：
 
@@ -120,7 +122,7 @@
 - [ ] 用真实小样本比较质量，保留可恢复的原配置。
 
 <a id="cost-guide"></a>
-## AI API 价格怎么算：输入、输出、缓存与任务成本
+## API 价格与成本 / API Pricing & Token Cost Comparison
 
 比较便宜的 LLM API，先统一 **币种、单位、模型、线路和功能**。每百万 tokens、每张图片、每秒视频、每次请求不能直接横向比较。充值到账的额度单位也不一定等于实际货币。
 
@@ -155,7 +157,7 @@ Agent 一项任务通常可能包含多次请求。应统计整项任务的输�
 [比较 Orbis 各条线路的当前价格](https://orbiorbi.com/pricing?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=cost-guide)。先做小量任务，核对用量和账单，再扩大批量规模。
 
 <a id="use-cases"></a>
-## RAG、Agent、翻译与多模态：按任务核对能力
+## 应用场景 / RAG, AI Agents, Translation & Multimodal Workflows
 
 | 场景 | 优先确认的能力 | 验证一个什么样的结果 |
 |---|---|---|
@@ -169,7 +171,7 @@ Agent 一项任务通常可能包含多次请求。应统计整项任务的输�
 这里是需求检查表。模型广场中的能力标签，不替代具体线路的实际功能测试。
 
 <a id="troubleshooting"></a>
-## API 常见错误与 FAQ
+## 常见错误 / API Troubleshooting & FAQ
 
 | 现象 | 先检查 | 下一步 |
 |---|---|---|
@@ -203,7 +205,7 @@ Agent 一项任务通常可能包含多次请求。应统计整项任务的输�
 区分长期免费额度、限时活动和一次性赠额，并核对限制。本文不承诺 Orbis 存在免费额度；当前政策以网站展示为准。
 
 <a id="orbis-setup"></a>
-## 通过 Orbis 接入：模型 + 线路 + Key
+## 通过 Orbis 接入 / Connect Models, Routes & API Keys
 
 [Orbis](https://orbiorbi.com/?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=orbis-setup) 把模型及可选择的分组线路集中展示。根据已查看的产品页面，同一模型可有不同线路，价格与协议按线路区分，API Key 绑定所选分组。
 
@@ -218,7 +220,7 @@ Agent 一项任务通常可能包含多次请求。应统计整项任务的输�
 **下一步：**[查看模型与线路](https://orbiorbi.com/pricing?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=footer-models) · [阅读接入文档](https://orbiorbi.com/tutorials?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=footer-docs) · [进入 API Key 页面](https://orbiorbi.com/keys?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=footer-keys)
 
 <a id="maintenance"></a>
-## 验证记录、更新与贡献
+## 验证与更新 / Verification, Updates & Contributions
 
 **内容核对日期：2026-10-19。** 首版完成选型、配置检查与成本说明；尚未发布逐线路端到端兼容测试结果，也没有实测性能排行。验证如何记录，见[验证方法](docs/verification.md)。
 

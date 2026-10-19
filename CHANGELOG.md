@@ -1,5 +1,10 @@
 # 更新记录 / Changelog
 
+## 2026-10-19 · 默认页面双语检索信息 / Bilingual discovery content
+
+- 默认 README 增加英文摘要、中英双语主标题、目录及核心章节标题；保留完整英文版。
+- 仓库简介同步中英文的 provider selection、pricing、integration 和 troubleshooting 描述。
+
 ## 2026-10-19 · 初版 / Initial edition
 
 - 发布中英文 README：快速选型、模型家族、工具配置检查、协议迁移、成本算例、应用场景和错误排查。
