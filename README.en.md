@@ -6,6 +6,36 @@
 
 A practical guide to Claude, GPT, Gemini, DeepSeek, Kimi, Qwen and GLM APIs; AI coding clients; OpenAI-compatible endpoints; usage costs; and common integration errors. Maintained by **Orbis**, a commercial multi-model API platform. This is a provider-maintained guide, not an independent provider ranking.
 
+<a id="why-orbis"></a>
+## Orbis: Affordable Multi-Model API
+
+**DeepSeek V4.1 Flash on the Orbis Exclusive route: ¥0.05 per million ordinary input tokens and ¥0.20 per million output tokens.** Choose a model and route around your budget for chat, batch processing and AI coding.
+
+### Featured API Pricing
+
+All prices are in **Chinese yuan per 1 million tokens (CNY / 1M tokens)**, from the public catalog on **2026-10-19**. Each row refers to a specific route.
+
+| Model | Route | Ordinary input | Output | Cache read |
+|---|---|---:|---:|---:|
+| [DeepSeek V4.1 Flash](https://orbiorbi.com/pricing/deepseek-v4.1-flash?catalogKey=model%2F129&offering=orbis-exclusive-deepseek-v4-1-flash&group=%E9%80%9A%E7%94%A8+%C2%B7+Orbis%E4%B8%93%E4%BE%9B%E7%BA%BF%E8%B7%AF&utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=value-pricing) | Orbis Exclusive | ¥0.05 | ¥0.2 | ¥0.01 |
+| [Kimi K3](https://orbiorbi.com/pricing/kimi-k3?catalogKey=model%2F139&offering=orbis-exclusive-kimi-k3&group=%E9%80%9A%E7%94%A8+%C2%B7+Orbis%E4%B8%93%E4%BE%9B%E7%BA%BF%E8%B7%AF&utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=value-pricing) | Orbis Exclusive | ¥0.1 | ¥0.5 | ¥0.4 |
+| [GPT-6.1 Sol](https://orbiorbi.com/pricing/gpt-6.1-sol?catalogKey=model%2F91&offering=channel-86%2Fdedfefd51120&group=GPT+%C2%B7+HA%E7%BA%BF%E8%B7%AF&utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=value-pricing) | GPT · HA | ¥0.225 | ¥1.125 | ¥0.01125 |
+| [GLM 5.3](https://orbiorbi.com/pricing/glm-5.3?catalogKey=model%2F132&offering=orbis-exclusive-glm-5-3&group=%E9%80%9A%E7%94%A8+%C2%B7+Orbis%E4%B8%93%E4%BE%9B%E7%BA%BF%E8%B7%AF&utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=value-pricing) | Orbis Exclusive | ¥0.5 | ¥2 | ¥0.25 |
+
+**What does that cost in practice?** At the listed DeepSeek rates, 1 million ordinary input tokens plus 1 million output tokens cost **¥0.25**. The same volumes on the listed Kimi K3 route cost **¥0.60**. These text-usage examples exclude cache writes, other modalities and additional billing items.
+
+### Why Orbis
+
+- **Low-cost entry**: exclusive routes offer inexpensive model options so you can start with a small budget.
+- **Pay as you go, no monthly fee**: pay for actual usage; your balance does not expire.
+- **Multiple models and selectable routes**: access Claude, GPT, Gemini, DeepSeek, Kimi and more through one platform. See route prices and choose the route yourself.
+- **Familiar API formats**: OpenAI-compatible and Anthropic protocol routes help connect existing applications. Supported endpoints and capabilities depend on the selected route.
+- **CNY billing and usage tracking**: budget in Chinese yuan and inspect usage and costs in the console.
+
+**[Browse all model and route prices →](https://orbiorbi.com/pricing?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=en-value-all-models)** · **[Get started with Orbis →](https://orbiorbi.com/?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=en-value-start)**
+
+Check the linked route for current prices. Cache reads and writes are billed separately; the listed Kimi K3 cache-read rate is higher than its ordinary input rate. These are checked public quotes, not live route benchmark results.
+
 ## Start with your task
 
 | Your goal | Start here |

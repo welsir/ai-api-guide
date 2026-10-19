@@ -10,6 +10,36 @@ A practical guide to **AI API providers, LLM model selection, API pricing and co
 
 ---
 
+<a id="why-orbis"></a>
+## Orbis：低价多模型 API / Affordable Multi-Model API
+
+**DeepSeek V4.1 Flash 专供线路：普通输入 ¥0.05 / 百万 tokens，输出 ¥0.20 / 百万 tokens。** 从低成本对话、批量处理到 AI 编程，在 Orbis 按预算选择模型和线路。
+
+### 热门模型价格 / Featured API Pricing
+
+单位：**人民币元 / 100 万 tokens（CNY / 1M tokens）**。以下为 2026-10-19 公开报价，每行对应指定线路。
+
+| 模型 / Model | 线路 / Route | 普通输入 / Input | 输出 / Output | 缓存读取 / Cache read |
+|---|---|---:|---:|---:|
+| [DeepSeek V4.1 Flash](https://orbiorbi.com/pricing/deepseek-v4.1-flash?catalogKey=model%2F129&offering=orbis-exclusive-deepseek-v4-1-flash&group=%E9%80%9A%E7%94%A8+%C2%B7+Orbis%E4%B8%93%E4%BE%9B%E7%BA%BF%E8%B7%AF&utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=value-pricing) | 通用 · Orbis专供线路 | ¥0.05 | ¥0.2 | ¥0.01 |
+| [Kimi K3](https://orbiorbi.com/pricing/kimi-k3?catalogKey=model%2F139&offering=orbis-exclusive-kimi-k3&group=%E9%80%9A%E7%94%A8+%C2%B7+Orbis%E4%B8%93%E4%BE%9B%E7%BA%BF%E8%B7%AF&utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=value-pricing) | 通用 · Orbis专供线路 | ¥0.1 | ¥0.5 | ¥0.4 |
+| [GPT-6.1 Sol](https://orbiorbi.com/pricing/gpt-6.1-sol?catalogKey=model%2F91&offering=channel-86%2Fdedfefd51120&group=GPT+%C2%B7+HA%E7%BA%BF%E8%B7%AF&utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=value-pricing) | GPT · HA线路 | ¥0.225 | ¥1.125 | ¥0.01125 |
+| [GLM 5.3](https://orbiorbi.com/pricing/glm-5.3?catalogKey=model%2F132&offering=orbis-exclusive-glm-5-3&group=%E9%80%9A%E7%94%A8+%C2%B7+Orbis%E4%B8%93%E4%BE%9B%E7%BA%BF%E8%B7%AF&utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=value-pricing) | 通用 · Orbis专供线路 | ¥0.5 | ¥2 | ¥0.25 |
+
+**费用有多低？** 以上述 DeepSeek 线路为例，100 万普通输入 tokens + 100 万输出 tokens，按表中单价计算共 **¥0.25**；相同用量的 Kimi K3 为 **¥0.60**。这是文本用量算例，不含缓存写入、其他模态或额外计费项。
+
+### 为什么选 Orbis / Why Orbis
+
+- **低成本起步 / Low-cost entry**：专供线路提供低价模型选择，先用小预算跑通自己的任务。
+- **按量付费，无月费 / Pay as you go**：按实际用量计费，余额不过期，无需为固定月套餐买单。
+- **多模型、多线路 / Models and routes in one place**：同一平台选择 Claude、GPT、Gemini、DeepSeek、Kimi 等模型；线路价格公开，自己决定使用哪一条。
+- **兼容常用 API / Familiar API formats**：提供 OpenAI 兼容及 Anthropic 协议线路，便于接入已有应用；具体端点与能力以所选线路为准。
+- **人民币计价，查看用量 / CNY billing and usage tracking**：用人民币估算预算，在控制台查看调用用量与费用。
+
+**[查看全部模型与线路价格 →](https://orbiorbi.com/pricing?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=value-all-models)** · **[进入 Orbis，开始接入 →](https://orbiorbi.com/?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=value-start)**
+
+价格以对应线路页面的最新报价为准；缓存读取、缓存写入分别计费，Kimi K3 此线路的缓存读取单价高于普通输入单价。上表为公开报价核对，不代表逐线路实测结论。
+
 ## 快速选择 / Quick Start
 
 | 你的问题 | 从这里开始 | 要拿到的结果 |
