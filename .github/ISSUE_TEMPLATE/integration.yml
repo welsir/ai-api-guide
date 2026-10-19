@@ -1,0 +1,36 @@
+name: 接入问题 / Integration issue
+description: 报告可复现的配置或接口问题，不要提供密钥。
+title: "[接入] "
+body:
+  - type: markdown
+    attributes:
+      value: "请勿提交 API Key、Authorization、Cookie、个人信息或私有业务内容。 / Do not share secrets or sensitive inputs."
+  - type: input
+    id: client
+    attributes:
+      label: 工具与版本 / Client and version
+    validations:
+      required: true
+  - type: input
+    id: model
+    attributes:
+      label: 模型与线路 / Model and route
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 脱敏步骤、预期与实际结果 / Sanitized reproduction and result
+    validations:
+      required: true
+  - type: input
+    id: date
+    attributes:
+      label: 发生时间与时区 / Date and timezone
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: 发布检查 / Before posting
+      options:
+        - label: 已移除凭据及敏感内容 / Credentials and sensitive content removed
+          required: true

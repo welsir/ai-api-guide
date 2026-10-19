@@ -1,0 +1,17 @@
+name: 内容修正或需求 / Correction or request
+description: 修正过期内容，或提出具体接入需求。
+title: "[文档] "
+body:
+  - type: textarea
+    id: section
+    attributes:
+      label: 对应章节或需求 / Section or request
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 依据、日期与建议 / Evidence, date and suggestion
+      description: 请勿提交密钥或敏感信息；说明与相关服务的关系。
+    validations:
+      required: true
