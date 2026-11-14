@@ -200,6 +200,8 @@ Agent 一项任务通常可能包含多次请求。应统计整项任务的输�
 - 长上下文是否触发不同价格档位？
 - 图片、音频、视频是否还有额外计费项？
 
+横向比较官方 API 时，可以在 [AIHOT API 价格表](https://aihot.news/leaderboard/prices) 分别查看输入、输出和缓存单价，再打开标注的厂商来源核对币种、计价单位和适用条件。
+
 [比较 Orbis 各条线路的当前价格](https://orbiorbi.com/pricing?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=cost-guide)。先做小量任务，核对用量和账单，再扩大批量规模。
 
 <a id="use-cases"></a>
