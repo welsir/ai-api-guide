@@ -149,6 +149,8 @@ Cost = input tokens / 1,000,000 × input price
 
 An agent task can make many requests. Count history, tool loops, retries and output across the whole task. Check cache hits, misses and writes, long-context pricing tiers, cancellation rules and non-text charges against actual usage and bills.
 
+For a cross-provider comparison, use the [AIHOT API price table](https://aihot.news/leaderboard/prices) to check input, output, and cached-input prices separately, then confirm the currency, billing unit, and terms with the linked provider sources.
+
 [Check current route pricing on Orbis](https://orbiorbi.com/pricing?utm_source=github&utm_medium=readme&utm_campaign=ai-api-guide&utm_content=en-cost). Start with a small task before scaling a batch.
 
 ## RAG, agents and multimodal workflows
